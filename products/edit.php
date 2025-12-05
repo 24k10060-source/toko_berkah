@@ -10,29 +10,29 @@ require_once("../setup/connection.php");
 
 if (isset($_POST['update'])) {    
     $id    = $_POST['id'];
-    $name  = trim($_POST['name']);
-    $qty   = trim($_POST['qty']);
-    $Rupiah = trim($_POST['Rupiah']);    
+    $nama_barang  = trim($_POST['nama_barang']);
+    $stok   = trim($_POST['stok']);
+    $harga = trim($_POST['harga']);    
     
-    if (empty($name) || empty($qty) || empty($Rupiah)) {
-        if (empty($name)) {
-            echo "<font color='red'>Name field is empty.</font><br/>";
+    if (empty($nama_barang) || empty($stok) || empty($harga)) {
+        if (empty($nama_barang)) {
+            echo "<font color='red'>nama_barang kosong.</font><br/>";
         }
-        if (empty($qty)) {
-            echo "<font color='red'>Quantity field is empty.</font><br/>";
+        if (empty($stok)) {
+            echo "<font color='red'>stok kosong.</font><br/>";
         }
-        if (empty($Rupiah)) {
-            echo "<font color='red'>Rupiah field is empty.</font><br/>";
+        if (empty($harga)) {
+            echo "<font color='red'>harga kosong.</font><br/>";
         }
     } else {
         try {
-            $stmt = $pdo->prepare("UPDATE products 
-                                   SET name = :name, qty = :qty, Rupiah = :Rupiah 
+            $stmt = $pdo->prepare("UPDATE barang 
+                                   SET nama_barang = :nama_barang, stok = :stok, harga = :harga 
                                    WHERE id = :id");
             $stmt->execute([
-                ':name'  => $name,
-                ':qty'   => $qty,
-                ':Rupiah' => $Rupiah,
+                ':nama_barang'  => $nama_barang,
+                ':stok'   => $stok,
+                ':harga' => $harga,
                 ':id'    => $id
             ]);
 
@@ -48,14 +48,14 @@ if (isset($_POST['update'])) {
 $id = $_GET['id'] ?? null;
 if ($id) {
     try {
-        $stmt = $pdo->prepare("SELECT * FROM products WHERE id = :id");
+        $stmt = $pdo->prepare("SELECT * FROM barang WHERE id = :id");
         $stmt->execute([':id' => $id]);
         $res = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($res) {
-            $name  = $res['name'];
-            $qty   = $res['qty'];
-            $Rupiah = $res['Rupiah'];
+            $nama_barang  = $res['nama_barang'];
+            $stok   = $res['stok'];
+            $harga = $res['harga'];
         } else {
             die("Product not found.");
         }
@@ -81,16 +81,16 @@ if ($id) {
     <form name="form1" method="post" action="edit.php">
         <table border="0">
             <tr> 
-                <td>Name</td>
-                <td><input type="text" name="name" value="<?php echo htmlspecialchars($name); ?>"></td>
+                <td>nama_barang</td>
+                <td><input type="text" name="nama_barang" value="<?php echo htmlspecialchars($nama_barang); ?>"></td>
             </tr>
             <tr> 
                 <td>Quantity</td>
-                <td><input type="text" name="qty" value="<?php echo htmlspecialchars($qty); ?>"></td>
+                <td><input type="text" name="stok" value="<?php echo htmlspecialchars($stok); ?>"></td>
             </tr>
             <tr>
-                <td>Rupiah</td>
-                <td><input type="text" name="Rupiah" value="<?php echo htmlspecialchars($Rupiah); ?>"></td>
+                <td>harga</td>
+                <td><input type="text" name="harga" value="<?php echo htmlspecialchars($harga); ?>"></td>
             </tr>
             <tr>
                 <td><input type="hidden" name="id" value="<?php echo htmlspecialchars($id); ?>"></td>

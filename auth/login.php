@@ -29,8 +29,8 @@ if (isset($_POST['submit'])) {
             $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
             if ($row) {
-                $_SESSION['valid'] = $row['username'];
-                $_SESSION['name']  = $row['name'];
+                $_SESSION['valid'] = $row['nama'];
+                $_SESSION['nama']  = $row['nama'];
                 $_SESSION['id']    = $row['id'];
 
                 header("Location: ../index.php");

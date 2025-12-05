@@ -9,8 +9,8 @@ if (!isset($_SESSION['valid'])) {
 require_once("../setup/connection.php"); 
 
 try {
-    $stmt = $pdo->prepare("SELECT * FROM products WHERE login_id = :login_id ORDER BY id DESC");
-    $stmt->execute([':login_id' => $_SESSION['id']]);
+    $stmt = $pdo->prepare("SELECT * FROM barang ORDER BY id DESC");
+    $stmt->execute();
     $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
     die("Query failed: " . htmlspecialchars($e->getMessage()));
@@ -30,16 +30,16 @@ try {
     
     <table width='80%' border=0>
         <tr bgcolor='#CCCCCC'>
-            <td>Name</td>
+            <td>Nama</td>
             <td>Quantity</td>
             <td>Rupiah (IDR)</td>
             <td>Update</td>
         </tr>
         <?php foreach ($products as $res): ?>
             <tr>
-                <td><?= htmlspecialchars($res['name']); ?></td>
-                <td><?= htmlspecialchars($res['qty']); ?></td>
-                <td><?= htmlspecialchars($res['Rupiah']); ?></td>
+                <td><?= htmlspecialchars($res['nama_barang']); ?></td>
+                <td><?= htmlspecialchars($res['stok']); ?></td>
+                <td><?= htmlspecialchars($res['harga']); ?></td>
                 <td>
                     <a href="edit.php?id=<?= $res['id']; ?>">Edit</a> | 
                     <a href="delete.php?id=<?= $res['id']; ?>" 

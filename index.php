@@ -18,7 +18,7 @@ session_start();
         $stmt = $pdo->query("SELECT * FROM users");
 
         ?>
-            Welcome <?php echo htmlspecialchars($_SESSION['name']); ?> ! 
+            Welcome <?php echo htmlspecialchars($_SESSION['nama']); ?> ! 
             <a href='../auth/logout.php'>Logout</a><br/>
             <br/>
             <a href='products/view.php'>View and Add Products</a>
