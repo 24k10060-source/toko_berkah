@@ -43,7 +43,8 @@ try {
                 <td>
                     <a href="edit.php?id=<?= $res['id']; ?>">Edit</a> | 
                     <a href="delete.php?id=<?= $res['id']; ?>" 
-                       onclick="return confirm('Are you sure you want to delete?')">Delete</a>
+                       onclick="return confirm('Are you sure you want to delete?')">Delete</a> |
+                       <a href="beli.html?id=<?= $res['id']; ?>">Beli</a>
                 </td>
             </tr>
         <?php endforeach; ?>
